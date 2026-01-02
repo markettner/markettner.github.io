@@ -3,6 +3,7 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MARKUS KETTNER</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
@@ -32,6 +33,9 @@
             align-items: center;
             gap: 0.2em;
             cursor: pointer;
+            /* Remove default anchor styling */
+            text-decoration: none;
+            color: inherit;
         }
 
         /* Mobile: stack words vertically */
@@ -49,6 +53,10 @@
             white-space: nowrap;
         }
 
+        .letter:not(:first-child) {
+            margin-left: -0.05em;
+        }
+
         .letter {
             display: inline-block;
             color: #fff;
@@ -60,7 +68,7 @@
             filter: drop-shadow(-0.15em 0.04em 0.12em rgba(0, 0, 0, 1)) brightness(100%);
 
             /* Smooth transition for hover interaction */
-            transition: transform 2s ease-in-out, filter 2s ease-in-out;
+            transition: transform 2s ease-in-out, filter 2s ease-in-out, color 2s ease-in-out, margin-left 2s ease-in-out;
         }
 
         /* Intro state: flat with no shadow */
@@ -70,15 +78,25 @@
         }
 
         /* Hover on the stage to affect all letters (desktop) */
+        .stage:hover .letter:not(:first-child) {
+            margin-left: -0.05em;
+        }
+
         .stage:hover .letter {
             transform: perspective(400px) rotateY(0deg);
             filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0)) brightness(100%);
+            color: #000;
         }
 
         /* Active state for touch devices - toggled via JavaScript */
+        .stage.active .letter:not(:first-child) {
+            margin-left: -0.05em;
+        }
+
         .stage.active .letter {
             transform: perspective(400px) rotateY(0deg);
             filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0)) brightness(100%);
+            color: #000;
         }
 
 
@@ -133,45 +151,50 @@
                 background-color: #000;
             }
 
+            /* Resting state: white text with black shadow */
             .letter {
-                color: #000;
-                filter: drop-shadow(-0.15em 0.04em 0.12em rgba(255, 255, 255, 1)) brightness(100%);
+                color: #fff;
+                filter: drop-shadow(-0.5em 0.04em 0.12em rgba(0, 0, 0, 1)) brightness(100%);
             }
 
+            /* Intro starting state: black text, no shadow */
+            .letter.starting {
+                color: #000;
+                filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0)) brightness(100%);
+            }
+
+            /* Hover state: white text, no shadow (same as resting color) */
             .stage:hover .letter,
             .stage.active .letter {
-                filter: drop-shadow(0px 0px 0px rgba(255, 255, 255, 0)) brightness(100%);
+                filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0)) brightness(100%);
+                color: #fff;
             }
 
-            .letter.starting {
-                filter: drop-shadow(0px 0px 0px rgba(255, 255, 255, 0)) brightness(100%);
-            }
-
+            /* Resting state: white icons with black shadow */
             .social-links svg path {
-                fill: #000;
+                fill: #fff;
             }
 
             .social-links a {
-                filter: drop-shadow(-0.15em 0.04em 0.12em rgba(255, 255, 255, 1)) brightness(100%);
+                filter: drop-shadow(-0.5em 0.04em 0.12em rgba(0, 0, 0, 1)) brightness(100%);
             }
 
-            .social-links a:hover,
+            /* Intro starting state: black icons, no shadow */
             .social-links a.starting {
-                filter: drop-shadow(0px 0px 0px rgba(255, 255, 255, 0)) brightness(100%);
+                filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0)) brightness(100%);
+            }
+
+            .social-links a.starting svg path {
+                fill: #000;
+            }
+
+            /* Hover state: white icons, no shadow (same as resting color) */
+            .social-links a:hover {
+                filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0)) brightness(100%);
             }
 
             .social-links a:hover svg path {
                 fill: #fff;
-            }
-
-            @keyframes intro {
-                0% {
-                    transform: perspective(400px) rotateY(0deg);
-                }
-
-                100% {
-                    transform: perspective(400px) rotateY(45deg);
-                }
             }
         }
     </style>
@@ -179,7 +202,7 @@
 
 <body>
 
-    <div class="stage">
+    <a id="name-link" class="stage">
         <div class="word">
             <span class="letter starting">M</span>
             <span class="letter starting">A</span>
@@ -197,7 +220,7 @@
             <span class="letter starting">E</span>
             <span class="letter starting">R</span>
         </div>
-    </div>
+    </a>
 
     <div class="social-links">
         <a href="https://instagram.com/markettner" target="_blank" aria-label="Instagram" class="starting">
@@ -236,6 +259,13 @@
                 element.classList.remove('starting');
             });
         }, 100);
+
+        // Obfuscated email - decoded at runtime to prevent crawler harvesting
+        (function () {
+            const encoded = 'bWFya3VzQGtldHRuZXIuYmVybGlu';
+            const link = document.getElementById('name-link');
+            link.href = 'mailto:' + atob(encoded);
+        })();
     </script>
 
 </body>
