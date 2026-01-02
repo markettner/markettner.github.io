@@ -26,10 +26,9 @@
             font-size: clamp(2rem, 10vw, 8rem);
             text-transform: uppercase;
             display: flex;
-            flex-direction: row;
-            /* Single line on desktop */
+            flex-direction: column;
             align-items: center;
-            gap: 0.2em;
+            gap: 0.1em;
         }
 
         .word {
@@ -41,8 +40,7 @@
 
         .letter {
             display: inline-block;
-            color: #000;
-            /* Black text on white - visible when flat */
+            color: #fff;
             transform-style: preserve-3d;
 
             /* Resting state: 45° rotation with shadow */
@@ -86,14 +84,6 @@
             }
         }
 
-        /* Mobile: stack words vertically */
-        @media (max-width: 600px) {
-            .stage {
-                flex-direction: column;
-                gap: 0.1em;
-            }
-        }
-
         /* Dark mode - inverted colors */
         @media (prefers-color-scheme: dark) {
             body {
@@ -101,8 +91,7 @@
             }
 
             .letter {
-                color: #fff;
-                /* White text on black - visible when flat */
+                color: #000;
                 filter: drop-shadow(-0.15em 0.04em 0.12em rgba(255, 255, 255, 1)) brightness(100%);
             }
 
