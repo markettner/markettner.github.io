@@ -43,8 +43,11 @@
         }
 
         /* Intro animation class - removed by JS after animation ends */
+        /* iOS Safari: filter must NOT be in @keyframes - it breaks the animation */
+        /* Instead, start with no shadow and let CSS transition handle it after animation ends */
         .letter.animating {
             animation: intro 2s ease-in-out forwards;
+            filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0)) brightness(100%);
         }
 
         /* Hover on the stage to affect all letters */
@@ -57,13 +60,11 @@
             0% {
                 /* Start flat */
                 transform: perspective(400px) rotateY(0deg);
-                filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0)) brightness(100%);
             }
 
             100% {
                 /* End at 45° */
                 transform: perspective(400px) rotateY(45deg);
-                filter: drop-shadow(-20px 5px 15px rgba(0, 0, 0, 1)) brightness(100%);
             }
         }
 
@@ -82,15 +83,17 @@
                 filter: drop-shadow(0px 0px 0px rgba(255, 255, 255, 0)) brightness(100%);
             }
 
+            .letter.animating {
+                filter: drop-shadow(0px 0px 0px rgba(255, 255, 255, 0)) brightness(100%);
+            }
+
             @keyframes intro {
                 0% {
                     transform: perspective(400px) rotateY(0deg);
-                    filter: drop-shadow(0px 0px 0px rgba(255, 255, 255, 0)) brightness(100%);
                 }
 
                 100% {
                     transform: perspective(400px) rotateY(45deg);
-                    filter: drop-shadow(-20px 5px 15px rgba(255, 255, 255, 1)) brightness(100%);
                 }
             }
         }
