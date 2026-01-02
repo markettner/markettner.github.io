@@ -156,23 +156,6 @@
                 letter.classList.remove('animating');
             });
         });
-
-        // Touch device support: tap anywhere to toggle the "active" state
-        const stage = document.querySelector('.stage');
-        let isTouchDevice = false;
-
-        // Detect touch device
-        document.body.addEventListener('touchstart', () => {
-            isTouchDevice = true;
-        }, { once: true });
-
-        // Toggle active state on tap anywhere (body) so it works even when text is invisible
-        document.body.addEventListener('click', (e) => {
-            // Only toggle on touch devices to avoid interfering with hover on desktop
-            if (isTouchDevice) {
-                stage.classList.toggle('active');
-            }
-        });
     </script>
 
 </body>
