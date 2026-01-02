@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: "Impact", sans-serif;
+            /* Condensed font matches the vibe */
+            overflow: hidden;
+        }
+
+        .stage {
+            /* Perspective is crucial: it determines how "deep" the 3D scene feels */
+            perspective: 800px;
+            font-size: 8rem;
+            text-transform: uppercase;
+            display: flex;
+            gap: 5px;
+            /* Slight gap helps the 3D rotation feel distinct */
+        }
+
+        .letter {
+            display: inline-block;
+            color: #e0e0e0;
+            transform-style: preserve-3d;
+
+            /* Variable duration and stagger calculated by index */
+            animation: spin 4s ease-in-out infinite;
+            animation-delay: calc(var(--i) * 0.1s);
+        }
+
+        @keyframes spin {
+
+            0%,
+            100% {
+                /* Facing forward: Bright, Heavy shadow to the left */
+                transform: rotateY(0deg);
+                filter: drop-shadow(-20px 0px 10px rgba(0, 0, 0, 1)) brightness(100%);
+            }
+
+            50% {
+                /* Turned 90 degrees: Darker, No shadow (it's edge-on) */
+                transform: rotateY(90deg);
+                /* As it turns, the shadow should disappear so it doesn't look like a floating smudge */
+                filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0)) brightness(30%);
+                opacity: 0.5;
+                /* Optional: fades out slightly when edge-on */
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="stage">
+        <span class="letter" style="--i:1">S</span>
+        <span class="letter" style="--i:2">T</span>
+        <span class="letter" style="--i:3">E</span>
+        <span class="letter" style="--i:4">V</span>
+        <span class="letter" style="--i:5">E</span>
+        <span class="letter" style="--i:6">N</span>
+    </div>
+
+</body>
+
+</html>
