@@ -26,9 +26,19 @@
             font-size: clamp(2rem, 10vw, 8rem);
             text-transform: uppercase;
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            /* Single line on desktop */
             align-items: center;
-            gap: 0.1em;
+            gap: 0.2em;
+            cursor: pointer;
+        }
+
+        /* Mobile: stack words vertically */
+        @media (max-width: 600px) {
+            .stage {
+                flex-direction: column;
+                gap: 0.1em;
+            }
         }
 
         .word {
@@ -147,17 +157,17 @@
             });
         });
 
-        // Touch device support: tap to toggle the "active" state
+        // Touch device support: tap anywhere to toggle the "active" state
         const stage = document.querySelector('.stage');
         let isTouchDevice = false;
 
         // Detect touch device
-        stage.addEventListener('touchstart', () => {
+        document.body.addEventListener('touchstart', () => {
             isTouchDevice = true;
         }, { once: true });
 
-        // Toggle active state on click (works for both touch and mouse)
-        stage.addEventListener('click', (e) => {
+        // Toggle active state on tap anywhere (body) so it works even when text is invisible
+        document.body.addEventListener('click', (e) => {
             // Only toggle on touch devices to avoid interfering with hover on desktop
             if (isTouchDevice) {
                 stage.classList.toggle('active');
