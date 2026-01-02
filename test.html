@@ -4,7 +4,7 @@
 <head>
     <style>
         body {
-            background-color: #000;
+            background-color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -21,13 +21,15 @@
             font-size: 8rem;
             text-transform: uppercase;
             display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 5px;
             /* Slight gap helps the 3D rotation feel distinct */
         }
 
         .letter {
             display: inline-block;
-            color: #e0e0e0;
+            color: #fff;
             transform-style: preserve-3d;
 
             /* Variable duration and stagger calculated by index */
@@ -45,12 +47,10 @@
             }
 
             50% {
-                /* Turned 90 degrees: Darker, No shadow (it's edge-on) */
+                /* Turned 90 degrees: No shadow (it's edge-on) */
                 transform: rotateY(90deg);
                 /* As it turns, the shadow should disappear so it doesn't look like a floating smudge */
-                filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0)) brightness(30%);
-                opacity: 0.5;
-                /* Optional: fades out slightly when edge-on */
+                filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0)) brightness(100%);
             }
         }
     </style>
@@ -59,12 +59,20 @@
 <body>
 
     <div class="stage">
-        <span class="letter" style="--i:1">S</span>
-        <span class="letter" style="--i:2">T</span>
-        <span class="letter" style="--i:3">E</span>
-        <span class="letter" style="--i:4">V</span>
-        <span class="letter" style="--i:5">E</span>
-        <span class="letter" style="--i:6">N</span>
+        <span class="letter" style="--i:1">M</span>
+        <span class="letter" style="--i:2">A</span>
+        <span class="letter" style="--i:3">R</span>
+        <span class="letter" style="--i:4">K</span>
+        <span class="letter" style="--i:5">U</span>
+        <span class="letter" style="--i:6">S</span>
+        <span class="letter" style="--i:7">&nbsp;</span>
+        <span class="letter" style="--i:8">K</span>
+        <span class="letter" style="--i:9">E</span>
+        <span class="letter" style="--i:10">T</span>
+        <span class="letter" style="--i:11">T</span>
+        <span class="letter" style="--i:12">N</span>
+        <span class="letter" style="--i:13">E</span>
+        <span class="letter" style="--i:14">R</span>
     </div>
 
 </body>

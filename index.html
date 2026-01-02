@@ -1,60 +1,130 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World - markettner.github.io</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            min-height: 100vh;
+            background-color: #fff;
             display: flex;
-            align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: "Jost", sans-serif;
+            font-weight: 500;
+            overflow: hidden;
         }
-        
-        .container {
-            text-align: center;
-            padding: 2rem;
+
+        .stage {
+            font-size: 8rem;
+            text-transform: uppercase;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
+            /* Slight gap helps the 3D rotation feel distinct */
         }
-        
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+
+        .letter {
+            display: inline-block;
+            color: #fff;
+            transform-style: preserve-3d;
+
+            /* Resting state: 45° rotation with shadow */
+            /* perspective() per letter gives each its own vanishing point */
+            transform: perspective(400px) rotateY(45deg);
+            filter: drop-shadow(-20px 5px 15px rgba(0, 0, 0, 1)) brightness(100%);
+
+            /* Smooth transition for hover interaction */
+            transition: transform 2s ease-in-out, filter 2s ease-in-out;
         }
-        
-        p {
-            font-size: 1.25rem;
-            opacity: 0.9;
+
+        /* Intro animation class - removed by JS after animation ends */
+        .letter.animating {
+            animation: intro 2s ease-in-out forwards;
         }
-        
-        .checkmark {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-            animation: bounce 1s ease infinite;
+
+        /* Hover on the stage to affect all letters */
+        .stage:hover .letter {
+            transform: perspective(400px) rotateY(0deg);
+            filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0)) brightness(100%);
         }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+
+        @keyframes intro {
+            0% {
+                /* Start flat */
+                transform: perspective(400px) rotateY(0deg);
+                filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0)) brightness(100%);
+            }
+
+            100% {
+                /* End at 45° */
+                transform: perspective(400px) rotateY(45deg);
+                filter: drop-shadow(-20px 5px 15px rgba(0, 0, 0, 1)) brightness(100%);
+            }
+        }
+
+        /* Dark mode - inverted colors */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #000;
+            }
+
+            .letter {
+                color: #000;
+                filter: drop-shadow(-20px 5px 15px rgba(255, 255, 255, 1)) brightness(100%);
+            }
+
+            .stage:hover .letter {
+                filter: drop-shadow(0px 0px 0px rgba(255, 255, 255, 0)) brightness(100%);
+            }
+
+            @keyframes intro {
+                0% {
+                    transform: perspective(400px) rotateY(0deg);
+                    filter: drop-shadow(0px 0px 0px rgba(255, 255, 255, 0)) brightness(100%);
+                }
+
+                100% {
+                    transform: perspective(400px) rotateY(45deg);
+                    filter: drop-shadow(-20px 5px 15px rgba(255, 255, 255, 1)) brightness(100%);
+                }
+            }
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="checkmark">✓</div>
-        <h1>Hello World!</h1>
-        <p>GitHub Pages is working correctly.</p>
+
+    <div class="stage">
+        <span class="letter animating" style="--i:1">M</span>
+        <span class="letter animating" style="--i:2">A</span>
+        <span class="letter animating" style="--i:3">R</span>
+        <span class="letter animating" style="--i:4">K</span>
+        <span class="letter animating" style="--i:5">U</span>
+        <span class="letter animating" style="--i:6">S</span>
+        <span class="letter animating" style="--i:7">&nbsp;</span>
+        <span class="letter animating" style="--i:8">K</span>
+        <span class="letter animating" style="--i:9">E</span>
+        <span class="letter animating" style="--i:10">T</span>
+        <span class="letter animating" style="--i:11">T</span>
+        <span class="letter animating" style="--i:12">N</span>
+        <span class="letter animating" style="--i:13">E</span>
+        <span class="letter animating" style="--i:14">R</span>
     </div>
+
+    <script>
+        // Remove the animating class after intro completes to enable smooth transitions
+        document.querySelectorAll('.letter').forEach(letter => {
+            letter.addEventListener('animationend', () => {
+                letter.classList.remove('animating');
+            });
+        });
+    </script>
+
 </body>
+
 </html>
