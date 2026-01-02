@@ -10,6 +10,7 @@
         body {
             background-color: #fff;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -62,11 +63,9 @@
             transition: transform 2s ease-in-out, filter 2s ease-in-out;
         }
 
-        /* Intro animation class - removed by JS after animation ends */
-        /* iOS Safari: filter must NOT be in @keyframes - it breaks the animation */
-        /* Instead, start with no shadow and let CSS transition handle it after animation ends */
-        .letter.animating {
-            animation: intro 2s ease-in-out forwards;
+        /* Intro state: flat with no shadow */
+        .letter.starting {
+            transform: perspective(400px) rotateY(0deg);
             filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0)) brightness(100%);
         }
 
@@ -82,16 +81,50 @@
             filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0)) brightness(100%);
         }
 
-        @keyframes intro {
-            0% {
-                /* Start flat */
-                transform: perspective(400px) rotateY(0deg);
-            }
 
-            100% {
-                /* End at 45° */
-                transform: perspective(400px) rotateY(45deg);
-            }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Match .letter styles */
+            transform-style: preserve-3d;
+            transform: perspective(400px) rotateY(45deg);
+            filter: drop-shadow(-0.15em 0.04em 0.12em rgba(0, 0, 0, 1)) brightness(100%);
+            transition: transform 2s ease-in-out, filter 2s ease-in-out;
+            opacity: 1;
+            /* Reset opacity from previous generic style */
+        }
+
+        .social-links a.starting {
+            transform: perspective(400px) rotateY(0deg);
+            filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0)) brightness(100%);
+        }
+
+        .social-links a:hover {
+            transform: perspective(400px) rotateY(0deg);
+            filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0)) brightness(100%);
+        }
+
+        .social-links a:hover svg path {
+            fill: #000;
+        }
+
+        .social-links svg {
+            width: 48px;
+            height: 48px;
+        }
+
+        .social-links svg path {
+            fill: #fff;
+            transition: fill 2s ease-in-out;
         }
 
         /* Dark mode - inverted colors */
@@ -110,8 +143,25 @@
                 filter: drop-shadow(0px 0px 0px rgba(255, 255, 255, 0)) brightness(100%);
             }
 
-            .letter.animating {
+            .letter.starting {
                 filter: drop-shadow(0px 0px 0px rgba(255, 255, 255, 0)) brightness(100%);
+            }
+
+            .social-links svg path {
+                fill: #000;
+            }
+
+            .social-links a {
+                filter: drop-shadow(-0.15em 0.04em 0.12em rgba(255, 255, 255, 1)) brightness(100%);
+            }
+
+            .social-links a:hover,
+            .social-links a.starting {
+                filter: drop-shadow(0px 0px 0px rgba(255, 255, 255, 0)) brightness(100%);
+            }
+
+            .social-links a:hover svg path {
+                fill: #fff;
             }
 
             @keyframes intro {
@@ -131,31 +181,61 @@
 
     <div class="stage">
         <div class="word">
-            <span class="letter animating">M</span>
-            <span class="letter animating">A</span>
-            <span class="letter animating">R</span>
-            <span class="letter animating">K</span>
-            <span class="letter animating">U</span>
-            <span class="letter animating">S</span>
+            <span class="letter starting">M</span>
+            <span class="letter starting">A</span>
+            <span class="letter starting">R</span>
+            <span class="letter starting">K</span>
+            <span class="letter starting">U</span>
+            <span class="letter starting">S</span>
         </div>
         <div class="word">
-            <span class="letter animating">K</span>
-            <span class="letter animating">E</span>
-            <span class="letter animating">T</span>
-            <span class="letter animating">T</span>
-            <span class="letter animating">N</span>
-            <span class="letter animating">E</span>
-            <span class="letter animating">R</span>
+            <span class="letter starting">K</span>
+            <span class="letter starting">E</span>
+            <span class="letter starting">T</span>
+            <span class="letter starting">T</span>
+            <span class="letter starting">N</span>
+            <span class="letter starting">E</span>
+            <span class="letter starting">R</span>
         </div>
     </div>
 
+    <div class="social-links">
+        <a href="https://instagram.com/markettner" target="_blank" aria-label="Instagram" class="starting">
+            <svg class="social-icon-fill" width="30" height="30" viewBox="0 0 30 30" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M0.25 9C0.25 4.16751 4.16751 0.25 9 0.25H21C25.8325 0.25 29.75 4.16751 29.75 9V21C29.75 25.8325 25.8325 29.75 21 29.75H9C4.16751 29.75 0.25 25.8325 0.25 21V9ZM9 1.75C4.99594 1.75 1.75 4.99594 1.75 9V21C1.75 25.0041 4.99594 28.25 9 28.25H21C25.0041 28.25 28.25 25.0041 28.25 21V9C28.25 4.99594 25.0041 1.75 21 1.75H9ZM24 7.75H22V6.25H24V7.75ZM8.25 15C8.25 11.2721 11.2721 8.25 15 8.25C18.7279 8.25 21.75 11.2721 21.75 15C21.75 18.7279 18.7279 21.75 15 21.75C11.2721 21.75 8.25 18.7279 8.25 15ZM15 9.75C12.1005 9.75 9.75 12.1005 9.75 15C9.75 17.8995 12.1005 20.25 15 20.25C17.8995 20.25 20.25 17.8995 20.25 15C20.25 12.1005 17.8995 9.75 15 9.75Z"
+                    fill="white"></path>
+            </svg>
+        </a>
+        <a href="https://www.strava.com/athletes/6566584" target="_blank" aria-label="Strava" class="starting">
+            <svg class="social-icon-fill" width="30" height="30" viewBox="0 0 30 30" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M11.9051 17.272C12.0415 17.0499 12.2835 16.9146 12.5441 16.9146H15.9593C16.2417 16.9146 16.5002 17.0733 16.6281 17.3251L18.2869 20.5928L19.9406 17.3259C20.0683 17.0736 20.3271 16.9146 20.6098 16.9146H24.0283C24.2889 16.9146 24.5309 17.0499 24.6673 17.2719C24.8038 17.494 24.8152 17.7709 24.6974 18.0035L18.957 29.3389C18.8293 29.591 18.5706 29.75 18.288 29.75C18.0053 29.7501 17.7466 29.5912 17.6189 29.339L11.8751 18.0036C11.7573 17.7711 11.7687 17.4941 11.9051 17.272ZM13.7649 18.4146L18.2877 27.3403L22.8078 18.4146H21.0708L18.957 22.5903C18.8294 22.8424 18.5709 23.0014 18.2883 23.0016C18.0057 23.0018 17.747 22.8431 17.6191 22.5911L15.4989 18.4146H13.7649Z"
+                    fill="white"></path>
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M12.7997 0.25C13.0824 0.249921 13.3411 0.408792 13.4689 0.660937L21.2788 16.0701C21.3966 16.3026 21.3853 16.5797 21.2489 16.8018C21.1124 17.0239 20.8705 17.1592 20.6098 17.1592H15.961C15.6783 17.1592 15.4197 17.0003 15.2919 16.7482L12.8007 11.8315L10.3148 16.7492C10.1872 17.0017 9.92839 17.1609 9.64549 17.1609H5C4.73941 17.1609 4.49751 17.0256 4.36105 16.8036C4.22459 16.5816 4.21315 16.3047 4.33083 16.0722L12.1307 0.661313C12.2584 0.409096 12.517 0.250079 12.7997 0.25ZM12.8004 2.6599L6.22019 15.6609H9.18424L12.1305 9.83228C12.2581 9.57993 12.5168 9.42077 12.7995 9.42063C13.0823 9.4205 13.3411 9.57941 13.4689 9.83164L16.4217 15.6592H19.3888L12.8004 2.6599Z"
+                    fill="white"></path>
+            </svg>
+        </a>
+        <a href="https://www.linkedin.com/in/markettner/" target="_blank" aria-label="LinkedIn" class="starting">
+            <svg class="social-icon-fill" width="30" height="30" viewBox="0 0 30 30" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M0.25 3C0.25 1.48122 1.48122 0.25 3 0.25H27C28.5188 0.25 29.75 1.48122 29.75 3V27C29.75 28.5188 28.5188 29.75 27 29.75H3C1.48122 29.75 0.25 28.5188 0.25 27V3ZM3 1.75C2.30964 1.75 1.75 2.30964 1.75 3V27C1.75 27.6904 2.30964 28.25 3 28.25H27C27.6904 28.25 28.25 27.6904 28.25 27V3C28.25 2.30964 27.6904 1.75 27 1.75H3ZM10 9.75H8V8.25H10V9.75ZM8.25 22V12H9.75V22H8.25ZM12.25 12H13.75V13.5359C14.5997 12.7384 15.7428 12.25 17 12.25C19.6234 12.25 21.75 14.3766 21.75 17V22H20.25V17C20.25 15.2051 18.7949 13.75 17 13.75C15.2051 13.75 13.75 15.2051 13.75 17V22H12.25V12Z"
+                    fill="white"></path>
+            </svg>
+        </a>
+    </div>
+
     <script>
-        // Remove the animating class after intro completes to enable smooth transitions
-        document.querySelectorAll('.letter').forEach(letter => {
-            letter.addEventListener('animationend', () => {
-                letter.classList.remove('animating');
+        // Use a short timeout to trigger the transition from the 'starting' state
+        setTimeout(() => {
+            document.querySelectorAll('.letter, .social-links a').forEach(element => {
+                element.classList.remove('starting');
             });
-        });
+        }, 100);
     </script>
 
 </body>
