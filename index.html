@@ -4,6 +4,27 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MARKUS KETTNER</title>
+
+    <!-- Favicons (rendered from the resting MK logo, transparent) -->
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kettner.berlin/">
+    <meta property="og:title" content="MARKUS KETTNER">
+    <meta property="og:description" content="Markus Kettner">
+    <meta property="og:image" content="https://kettner.berlin/kettner.berlin_1200x630.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://kettner.berlin/">
+    <meta name="twitter:title" content="MARKUS KETTNER">
+    <meta name="twitter:description" content="Markus Kettner">
+    <meta name="twitter:image" content="https://kettner.berlin/kettner.berlin_1200x630.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
@@ -38,13 +59,7 @@
             color: inherit;
         }
 
-        /* Mobile: stack words vertically */
-        @media (max-width: 600px) {
-            .stage {
-                flex-direction: column;
-                gap: 0.1em;
-            }
-        }
+
 
         .word {
             display: flex;
@@ -106,6 +121,16 @@
             justify-content: center;
             gap: 1.5rem;
             margin-top: 2rem;
+        }
+
+        /* When text wraps to two lines: scale font to match icon row width */
+        @media (max-width: 800px) {
+            .stage {
+                flex-direction: column;
+                gap: 0.1em;
+                /* Font-size set dynamically by JavaScript based on icon row width */
+                font-size: var(--mobile-font-size, clamp(2.5rem, 18vw, 5.5rem));
+            }
         }
 
         .social-links a {
@@ -325,6 +350,35 @@
                     fill="white" />
             </svg>
         </a>
+        <a href="https://radius.kettner.berlin/" target="_blank" aria-label="Radius" class="starting">
+            <svg class="social-icon-fill" width="30" height="30" viewBox="0 0 701 701" fill="none"
+                xmlns="http://www.w3.org/2000/svg" style="fill-rule:evenodd;clip-rule:evenodd;">
+                <path
+                    d="M286.981,339.922l-9.376,8.945c-0.747,0.636 -1.528,1.219 -2.344,1.748c-0.817,0.53 -1.715,0.795 -2.694,0.795c-1.866,-0 -3.336,-0.649 -4.409,-1.947c-1.073,-1.298 -1.609,-2.768 -1.609,-4.41c-0,-2.066 0.746,-3.787 2.239,-5.165l72.914,-69.525c2.612,-2.543 5.411,-3.814 8.397,-3.814c2.985,-0 5.784,1.271 8.397,3.814l72.914,69.525c1.493,1.378 2.239,3.099 2.239,5.165c0,1.642 -0.525,3.112 -1.574,4.41c-1.05,1.298 -2.531,1.947 -4.444,1.947c-0.979,-0 -1.877,-0.265 -2.694,-0.795c-0.816,-0.529 -1.574,-1.112 -2.274,-1.748l-9.447,-9.003l0,76.225c0,5.562 -1.376,9.879 -4.128,12.951c-2.753,3.073 -6.625,4.609 -11.616,4.609l-94.676,0c-4.992,0 -8.875,-1.523 -11.651,-4.569c-2.776,-3.046 -4.164,-7.376 -4.164,-12.991l0,-76.167Z"
+                    fill="white" style="fill-rule:nonzero;"></path>
+                <path
+                    d="M350.099,-0c193.225,-0 350.099,156.874 350.099,350.099c-0,193.225 -156.874,350.099 -350.099,350.099c-193.225,-0 -350.099,-156.874 -350.099,-350.099c0,-193.225 156.874,-350.099 350.099,-350.099Zm-0,50c165.629,-0 300.099,134.47 300.099,300.099c-0,165.629 -134.47,300.099 -300.099,300.099c-165.629,-0 -300.099,-134.47 -300.099,-300.099c0,-165.629 134.47,-300.099 300.099,-300.099Z"
+                    fill="white"></path>
+                <path
+                    d="M375.104,478.342c0,-13.801 -11.204,-25.005 -25.005,-25.005c-13.801,-0 -25.006,11.204 -25.006,25.005l0,124.764c0,13.801 11.205,25.005 25.006,25.005c13.801,0 25.005,-11.204 25.005,-25.005l0,-124.764Z"
+                    fill="white"></path>
+                <path
+                    d="M375.104,97.092c0,-13.801 -11.204,-25.005 -25.005,-25.005c-13.801,-0 -25.006,11.204 -25.006,25.005l0,124.764c0,13.801 11.205,25.005 25.006,25.005c13.801,0 25.005,-11.204 25.005,-25.005l0,-124.764Z"
+                    fill="white"></path>
+                <path
+                    d="M473.663,392.565c-11.951,-6.9 -27.257,-2.799 -34.158,9.153c-6.9,11.952 -2.799,27.257 9.153,34.158l108.048,62.382c11.952,6.9 27.258,2.799 34.159,-9.153c6.9,-11.952 2.799,-27.258 -9.153,-34.158l-108.049,-62.382Z"
+                    fill="white"></path>
+                <path
+                    d="M143.491,201.94c-11.952,-6.9 -27.257,-2.799 -34.158,9.153c-6.9,11.952 -2.799,27.257 9.153,34.158l108.048,62.382c11.952,6.9 27.258,2.799 34.158,-9.153c6.901,-11.952 2.8,-27.258 -9.152,-34.158l-108.049,-62.382Z"
+                    fill="white"></path>
+                <path
+                    d="M448.658,264.322c-11.952,6.9 -16.053,22.206 -9.153,34.158c6.901,11.952 22.207,16.053 34.158,9.153l108.049,-62.382c11.952,-6.901 16.053,-22.206 9.153,-34.158c-6.901,-11.952 -22.207,-16.053 -34.159,-9.153l-108.048,62.382Z"
+                    fill="white"></path>
+                <path
+                    d="M118.486,454.947c-11.952,6.9 -16.053,22.206 -9.153,34.158c6.901,11.952 22.206,16.053 34.158,9.153l108.049,-62.382c11.952,-6.901 16.053,-22.206 9.152,-34.158c-6.9,-11.952 -22.206,-16.053 -34.158,-9.153l-108.048,62.382Z"
+                    fill="white"></path>
+            </svg>
+        </a>
         <a href="http://ditto.kettner.berlin" target="_blank" aria-label="Ditto" class="starting">
             <svg class="social-icon-fill" width="30" height="30" viewBox="0 0 2151 2151" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
@@ -353,6 +407,33 @@
             const encoded = 'bWFya3VzQGtldHRuZXIuYmVybGlu';
             const link = document.getElementById('name-link');
             link.href = 'mailto:' + atob(encoded);
+        })();
+
+        // Dynamic font scaling: match text width to icon row width
+        (function () {
+            const MOBILE_BREAKPOINT = 800;
+            const LETTERS_IN_LONGEST_WORD = 7; // "KETTNER"
+            const EM_PER_LETTER = 0.55; // Effective width per letter with current styling
+
+            function updateFontSize() {
+                const stage = document.querySelector('.stage');
+                const socialLinks = document.querySelector('.social-links');
+
+                if (window.innerWidth <= MOBILE_BREAKPOINT) {
+                    // Measure the actual icon row width
+                    const iconRowWidth = socialLinks.getBoundingClientRect().width;
+                    // Calculate font-size: iconRowWidth / (letters * em_per_letter)
+                    const fontSize = iconRowWidth / (LETTERS_IN_LONGEST_WORD * EM_PER_LETTER);
+                    document.documentElement.style.setProperty('--mobile-font-size', fontSize + 'px');
+                } else {
+                    // Remove the variable when not in mobile view
+                    document.documentElement.style.removeProperty('--mobile-font-size');
+                }
+            }
+
+            // Run on load and resize
+            updateFontSize();
+            window.addEventListener('resize', updateFontSize);
         })();
     </script>
 
